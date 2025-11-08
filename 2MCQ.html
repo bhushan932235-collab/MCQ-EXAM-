@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fire Engineering MCQ Exam</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #fff6f0;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      background: linear-gradient(90deg, #ff6b00, #ff914d);
+      color: white;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .exam-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 25px;
+      padding: 15px;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+    }
+    .question h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+    button {
+      background: linear-gradient(90deg, #ff6b00, #ff914d);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.03);
+    }
+
+    /* Result Page */
+    .result-container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      display: none;
+    }
+    .header {
+      background: linear-gradient(90deg, #ff6b00, #ff914d);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 2px solid #eee;
+    }
+    .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .tab.active {
+      color: #ff6b00;
+      border-bottom: 3px solid #ff6b00;
+    }
+    .content {
+      padding: 30px;
+      display: none;
+    }
+    .content.active {
+      display: block;
+    }
+    .score-section {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 5px solid #ff6b00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .circle-label {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+    .details {
+      margin-top: 40px;
+    }
+    .details div {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #333;
+    }
+    .rank {
+      background: #fff5e6;
+      color: #ff6b00;
+      padding: 12px;
+      text-align: center;
+      border-radius: 8px;
+      margin-top: 25px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🔥 Fire Engineering MCQ Exam</header>
+
+  <div class="exam-container" id="exam">
+    <form id="examForm">
+      <!-- Questions -->
+      <div id="questions"></div>
+      <button type="submit">Submit Exam</button>
+    </form>
+  </div>
+
+  <!-- Result Section -->
+  <div class="result-container" id="resultPage">
+    <div class="header">🔥 Fire Engineering Exam Result</div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="openTab(event, 'result')">Test Result</div>
+      <div class="tab" onclick="openTab(event, 'analysis')">Analysis</div>
+      <div class="tab" onclick="openTab(event, 'rank')">Rank List</div>
+    </div>
+
+    <div id="result" class="content active">
+      <div class="score-section">
+        <div>
+          <div class="circle" id="scorePercent">0%</div>
+          <div class="circle-label">Score Ratio</div>
+        </div>
+        <div>
+          <div class="circle" id="scoreValue">0/25</div>
+          <div class="circle-label">Score</div>
+        </div>
+        <div>
+          <div class="circle" id="timeTaken">0s</div>
+          <div class="circle-label">Time</div>
+        </div>
+      </div>
+
+      <div class="details">
+        <div><span>Start Time</span><span id="startTime"></span></div>
+        <div><span>Submit Time</span><span id="submitTime"></span></div>
+      </div>
+
+      <div class="rank" id="rankMsg"></div>
+    </div>
+
+    <div id="analysis" class="content">
+      <p>✔️ Review your answers to identify improvement areas.</p>
+    </div>
+
+    <div id="rank" class="content">
+      <p>1. You — <span id="rankScore"></span>%</p>
+      <p>2. Student B — 92%</p>
+      <p>3. Student C — 85%</p>
+    </div>
+  </div>
+
+  <script>
+const questionsData = [
+  {q:"The main principle behind stored pressure type extinguishers is:", a:["Using external pressure for discharge","Using internally stored gas pressure for discharge","Using a pump system","Manual air filling"], correct:1},
+  {q:"Cartridge-based fire extinguishers operate by:", a:["Mixing chemicals automatically","Releasing pressure from a separate gas cartridge","Cooling the container","Burning fuel"], correct:1},
+  {q:"MAP concentration refers to:", a:["Mono Ammonium Phosphate content in dry chemical powder","Mass air pressure in extinguishers","Molecular absorption percentage","Magnetic activation process"], correct:0},
+  {q:"DCP extinguishers are most suitable for:", a:["Class A fires","Class B & C fires","Electrical fires only","Metal fires"], correct:1},
+  {q:"Which fire extinguisher is best for electrical fires?", a:["Foam","CO₂","Water","Dry sand"], correct:1},
+  {q:"FM-200 and Novec 1230 are examples of:", a:["Dry chemical agents","Gaseous clean agents","Wet foam agents","Water mist systems"], correct:1},
+  {q:"Clean agent systems primarily extinguish fire by:", a:["Smothering and cooling","Displacement of oxygen and heat absorption","Dilution","Vaporization"], correct:1},
+  {q:"Refilling and hydraulic pressure testing of extinguishers ensures:", a:["Paint quality","Pressure vessel integrity and performance","Weight of powder","CO₂ quantity"], correct:1},
+  {q:"The principle of automatic fire detection is based on:", a:["Color of smoke","Detection of heat, smoke, or flame signatures","Noise levels","Air humidity"], correct:1},
+  {q:"Smoke detectors generally work on:", a:["Photoelectric and ionization principles","Electromagnetic induction","Magnetic field sensors","Ultrasonic waves"], correct:0},
+  {q:"Heat detectors are triggered by:", a:["Increase in humidity","Rise in temperature","Light intensity","Air pressure"], correct:1},
+  {q:"Flame detectors sense:", a:["Smoke","Ultraviolet or infrared radiation","Heat only","Sound"], correct:1},
+  {q:"The main advantage of addressable alarm systems over conventional ones is:", a:["Lower cost","Identifying the exact location of alarm activation","No maintenance required","Faster wiring"], correct:1},
+  {q:"MCP in fire alarm systems stands for:", a:["Manual Control Point","Main Control Panel","Manual Call Point","Monitoring Control Point"], correct:2},
+  {q:"Hooters and indicators provide:", a:["Fire suppression","Audio-visual warning signals","Smoke filtering","Cooling"], correct:1},
+  {q:"The system logic in fire alarms ensures:", a:["Manual override only","Proper sequence of detection, alarm, and action","Continuous air flow","Automatic extinguishing"], correct:1},
+  {q:"An auto-dialer in a fire alarm system is used for:", a:["Playing alarm sound","Automatic communication to authorities or control room","Detecting smoke","Storing event data"], correct:1},
+  {q:"Common errors in alarm systems include:", a:["False alarms","Signal delay","System faults","All of the above"], correct:3},
+  {q:"Passive fire protection primarily aims to:", a:["Detect fires quickly","Limit the spread of fire and smoke","Extinguish the fire","Provide ventilation"], correct:1},
+  {q:"Fire doors are designed to:", a:["Trap people inside","Prevent the spread of fire and smoke between compartments","Support electrical wiring","Cool air flow"], correct:1},
+  {q:"Fire walls are constructed to:", a:["Reduce building weight","Divide structures into fire compartments","Enhance aesthetics","Carry electrical lines"], correct:1},
+  {q:"Intumescent paint works by:", a:["Reflecting sunlight","Expanding when exposed to heat to form an insulating layer","Conducting electricity","Absorbing smoke"], correct:1},
+  {q:"Emergency exit lights are used for:", a:["Decoration","Directional guidance during emergencies","Smoke detection","Heat control"], correct:1},
+  {q:"Dampers in HVAC systems help:", a:["Increase air circulation","Prevent the spread of smoke and fire through ducts","Create pressure differences","Produce cooling effect"], correct:1},
+  {q:"Protection of muster/refuge points is important because:", a:["They are storage areas","They serve as safe assembly points during evacuation","They hold fire equipment","They are fire sources"], correct:1},
+  {q:"The primary purpose of a wet pipe sprinkler system is:", a:["Store water until needed","Provide immediate water discharge upon activation","Detect fire via heat sensors","Release gas suppressant"], correct:1},
+  {q:"Which gas is commonly used in gaseous fire suppression systems?", a:["Nitrogen","Carbon dioxide (CO₂)","Oxygen","Argon"], correct:1},
+  {q:"The main hazard of using CO₂ as a fire suppressant in occupied spaces is:", a:["Toxicity to humans","Low effectiveness on electrical fires","Corrosiveness","High cost"], correct:0},
+  {q:"Which material is commonly used for passive fire protection in structural steel?", a:["Intumescent paint","Aluminum foil","PVC coating","Fiberglass"], correct:0},
+  {q:"Fire alarm zones are used to:", a:["Group detectors for easier identification of fire location","Reduce false alarms","Control sprinklers","Activate ventilation systems"], correct:0},
+  {q:"Which type of fire detector is most effective in detecting slow smoldering fires?", a:["Heat detector","Photoelectric smoke detector","Ionization smoke detector","Flame detector"], correct:1},
+  {q:"The term 'NFPA' stands for:", a:["National Fire Protection Association","National Fire Prevention Agency","National Fire Police Association","National Fire Public Authority"], correct:0},
+  {q:"Which of the following is NOT a fire extinguisher class in India?", a:["Class A","Class B","Class D","Class F"], correct:3},
+  {q:"Fire resistance rating of a building material is measured in:", a:["Minutes or hours","Degrees Celsius","Pascals","Meters"], correct:0},
+  {q:"The function of a sprinkler system is to:", a:["Detect fire","Sound alarms","Suppress fire by water spray","Evacuate occupants"], correct:2}
+];
+
+    const questionsDiv = document.getElementById("questions");
+    questionsData.forEach((q, i) => {
+      let html = `<div class='question'><h3>${i + 1}. ${q.q}</h3>`;
+      q.a.forEach((opt, idx) => {
+        html += `<label><input type='radio' name='q${i}' value='${idx}'> ${opt}</label>`;
+      });
+      html += "</div>";
+      questionsDiv.innerHTML += html;
+    });
+
+    let startTime = new Date();
+    document.getElementById("startTime").innerText = startTime.toLocaleString();
+
+    document.getElementById("examForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const endTime = new Date();
+      let correct = 0;
+
+      questionsData.forEach((q, i) => {
+        const ans = document.querySelector(`input[name='q${i}']:checked`);
+        if (ans && parseInt(ans.value) === q.correct) correct++;
+      });
+
+      const total = questionsData.length;
+      const percent = Math.round((correct / total) * 100);
+      const timeTaken = Math.floor((endTime - startTime) / 1000);
+
+      document.getElementById("scorePercent").innerText = percent + "%";
+      document.getElementById("scoreValue").innerText = `${correct}/${total}`;
+      document.getElementById("timeTaken").innerText = `${timeTaken}s`;
+      document.getElementById("submitTime").innerText = endTime.toLocaleString();
+      document.getElementById("rankScore").innerText = percent;
+      document.getElementById("rankMsg").innerText = percent === 100 ? "You have scored full marks! Rank #1 🔥" : `You scored ${percent}%. Keep improving!`;
+
+      document.getElementById("exam").style.display = "none";
+      document.getElementById("resultPage").style.display = "block";
+    });
+
+    function openTab(evt, tabName) {
+      document.querySelectorAll(".content").forEach(c => c.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+  </script>
+</body>
+</html>
+
