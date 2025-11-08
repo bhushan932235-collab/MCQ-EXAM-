@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥 Fire Engineering MCQ Exam</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #fff6f0;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      background: linear-gradient(90deg, #ff6b00, #ff914d);
+      color: white;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    .exam-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .question {
+      margin-bottom: 25px;
+      padding: 15px;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+    }
+    .question h3 { margin-bottom: 10px; color: #333; }
+    label { display: block; margin-bottom: 5px; cursor: pointer; }
+    button {
+      background: linear-gradient(90deg, #ff6b00, #ff914d);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      transition: 0.3s;
+    }
+    button:hover { transform: scale(1.03); }
+    .result-container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      display: none;
+    }
+    .header {
+      background: linear-gradient(90deg, #ff6b00, #ff914d);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .content { padding: 30px; }
+    .score-section {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 5px solid #ff6b00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .circle-label { text-align: center; font-size: 14px; color: #666; }
+    .details { margin-top: 40px; }
+    .details div {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #333;
+    }
+    .rank {
+      background: #fff5e6;
+      color: #ff6b00;
+      padding: 12px;
+      text-align: center;
+      border-radius: 8px;
+      margin-top: 25px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🔥 Fire Engineering MCQ Exam</header>
+
+  <div class="exam-container" id="exam">
+    <form id="examForm">
+      <div id="questions"></div>
+      <button type="submit">Submit Exam</button>
+    </form>
+  </div>
+
+  <div class="result-container" id="resultPage">
+    <div class="header">🔥 Fire Engineering Exam Result</div>
+    <div id="result" class="content active">
+      <div class="score-section">
+        <div>
+          <div class="circle" id="scorePercent">0%</div>
+          <div class="circle-label">Score Ratio</div>
+        </div>
+        <div>
+          <div class="circle" id="scoreValue">0/35</div>
+          <div class="circle-label">Score</div>
+        </div>
+        <div>
+          <div class="circle" id="timeTaken">0s</div>
+          <div class="circle-label">Time</div>
+        </div>
+      </div>
+      <div class="details">
+        <div><span>Start Time</span><span id="startTime"></span></div>
+        <div><span>Submit Time</span><span id="submitTime"></span></div>
+      </div>
+      <div class="rank" id="rankMsg"></div>
+    </div>
+  </div>
+
+  <script>
+    const questionsData = [
+{q:"Which statement best describes the “fire triangle”?",a:["Fuel, ignition source, dilution","Fuel, oxygen, heat","Fuel, pressure, heat","Oxygen, radiation, time"],correct:1},
+{q:"The “fire tetrahedron” adds which component to the fire triangle concept?",a:["Ignition energy","Chemical chain reaction","Inerting gas","Smoke production"],correct:1},
+{q:"Which property of water makes it particularly effective for cooling but less effective on class B liquid fires?",a:["High thermal conductivity only","High latent heat of vaporization","Low viscosity","Low boiling point"],correct:1},
+{q:"Which extinguisher media is LEAST appropriate for an electrical equipment fire (energized)?",a:["CO₂","Dry chemical (BC)","Foam (aqueous film-forming foam) applied directly","Clean agent (e.g., FM-200)"],correct:2},
+{q:"According to typical classification systems, a “Class A” fire involves:",a:["Flammable liquids","Electrical equipment","Ordinary combustibles like wood and paper","Cooking oils and fats"],correct:2},
+{q:"Which of these is the best definition of “flashover”?",a:["Auto-ignition of a small fuel parcel in flame front","Simultaneous ignition of all exposed combustible surfaces in a compartment due to radiative heat feedback","Localized explosion caused by flammable vapor cloud ignition","Ignition of a single fuel source at heat release rate peak"],correct:1},
+{q:"The principal reason foams suppress liquid hydrocarbon fires is that they:",a:["Increase oxygen concentration at surface","Form a vapour-suppressing blanket and cool the surface","React chemically with fuel to make it non-flammable","Convert liquid to solid"],correct:1},
+{q:"Which of the following statements about “water as an extinguishing medium” is FALSE?",a:["Water cools by sensible and latent heat removal.","Water dilutes flammable liquids to remove combustibility.","Water can be hazardous on oil fires because it can spread the fuel.","Water may conduct electricity and thus is not used on energized electrical equipment."],correct:1},
+{q:"Which Indian standard (or concept equivalent) is typically used for classifying building fires by occupancy and hazard for fire design?",a:["IS for seismic loads only","Classification based on occupancy and fire load per national standards","ISO standard for marine fire classification only","ASTM standard for textile flammability"],correct:1},
+{q:"“Stages of fire” progression generally include:",a:["Ignition, growth, flashover, fully developed, decay","Ignition, steady burn, electric failure","Spontaneous ignition, evaporation, condensation","Pre-mix, detonation, extinction"],correct:0},
+{q:"An extinguisher that removes oxygen from the combustion zone primarily acts by:",a:["Cooling the fuel below flash point","Forming a barrier to oxygen transfer (blanketing)","Increasing fuel volatility","Catalyzing recombination reactions"],correct:1},
+{q:"Which is a correct explanation of “fire point” vs “flash point”?",a:["Flash point > Fire point always","Fire point is the temperature at which vapour above a liquid ignites and continues to burn; flash point may produce a transient flame only","They are identical terms used interchangeably","Flash point depends only on ambient pressure, fire point on oxygen content"],correct:1},
+{q:"Which molecular characteristic most directly influences ignition temperature of a fuel?",a:["Colour of the liquid","Strength of bonds and ease of bond cleavage leading to radicals","Molecular weight only","Solidification point"],correct:1},
+{q:"Which extinguishing method is primarily based on interrupting the chain reaction?",a:["Water cooling","Foam smothering","Halon and certain chemical inhibitors that scavenge free radicals","Increasing ventilation"],correct:2},
+{q:"Which is a primary limitation of water mist systems compared to bulk water application?",a:["They always cause electrical short circuits","They give only radiant heat suppression (no convective cooling)","They require higher pressure and aim to cool/gas-phase suppress rather than flood surfaces","They cause immediate fuel solidification"],correct:2},
+{q:"The “fire triangle” concept fails to explicitly represent which dynamic that the tetrahedron corrects for?",a:["Fuel temperature","Rate of heat release from pyrolysis and chain reactions sustaining combustion","Humidity effects","Pressure effects"],correct:1},
+{q:"“Classifying fires as per Indian standards” typically helps primarily with:",a:["Estimating required seismic reinforcement","Selecting appropriate detection, suppression systems and safe evacuation strategies","Determining HVAC sizing only","Calculating electrical load"],correct:1},
+{q:"The most common cause of accidental fires in industrial premises is usually:",a:["Lightning strike","Human error or negligence combined with ignition sources (e.g., hot work)","Spontaneous combustion of metals only","Nuclear reactions"],correct:1},
+{q:"Inhibition of chain reactions in combustion is commonly achieved by additives that:",a:["Increase oxygen concentration","Scavenge radical species such as H· and OH·","Catalyse radical formation","Lower fuel boiling point"],correct:1},
+{q:"Which process best describes “auto-ignition”?",a:["Ignition caused by a spark or flame","Self-heating of a material until it reaches ignition temperature without an external flame or spark","Ignition prevented by an inhibitor","Ignition only under vacuum"],correct:1},
+{q:"A combustion chain mechanism involving a free radical propagation step is most likely to exhibit:",a:["No temperature dependence","Strong dependence on radical formation/termination kinetics and thus can show runaway behavior above certain temperatures","Only homogeneous reactions, never heterogeneous","Immediate quenching in presence of inert gas without temperature change"],correct:1},
+{q:"Exothermic chemical reactions in combustion:",a:["Absorb heat from environment","Release heat, contributing to sustaining the fire and raising surrounding temperature","Always produce cooling effects","Are independent of fuel concentration"],correct:1},
+{q:"Which preventive measure directly reduces the probability of ignition from electrical equipment?",a:["Increasing oxygen in room","Use of intrinsically safe or explosion-proof equipment and proper maintenance","Storing more flammable liquids nearby for dilution","Removing insulation from wires"],correct:1},
+{q:"Which is the best description of “un-inhibited chain reaction” in combustion?",a:["A chain reaction with deliberate addition of inhibitors","A self-sustaining radical chain propagation with negligible termination, leading to rapid heat release","A reaction limited by oxygen diffusion only","A reaction that cannot be extinguished by water"],correct:1},
+{q:"The tetrahedron concept shows the importance of chemical chain reaction. Which suppression strategy is specifically targeted at this element?",a:["Cooling fuel below boiling point","Application of halogenated agents that interrupt radical chains","Removing ventilation","Increasing humidity"],correct:1},
+{q:"Which factor is most important in classifying causes of fire for statistical prevention measures?",a:["Colour of flames observed","Root cause analysis distinguishing human factors, equipment failure, process faults, and natural causes","Brand of extinguishers present only","Day of the week"],correct:1},
+{q:"In combustion chemistry, what role do chain-branching reactions have?",a:["They slow down reaction rate","They rapidly increase radical concentration and can lead to explosions or rapid accelerations in burning rate","They only occur in solid fuels","They always decrease flame temperature"],correct:1},
+{q:"Endothermic chemical reactions in a fire scenario are important for:",a:["Increasing local temperature","Absorbing heat and potentially reducing local flame temperature (e.g., vaporization processes)","Producing oxygen","Sustaining chain reactions"],correct:1},
+{q:"Which is NOT typically considered a control measure for preventing combustion chain propagation?",a:["Use of radical scavengers in certain systems","Maintaining temperatures below critical reaction thresholds","Supplying additional oxygen to dilute fuel","Isolation of reactive materials"],correct:2},
+{q:"For hydrogen combustion, a typical chain mechanism involves which key radical species?",a:["Cl· only","H· and OH· primarily, contributing to propagation and termination steps","N₂ only","Only molecular hydrogen without radicals"],correct:1},
+{q:"Which preventive measure directly addresses “hot work” risks?",a:["Removing all combustible materials from site, permit-to-work and hot work controls and fire watches","Increasing humidity only","Painting all surfaces with water-repellent paint","Installing skylights"],correct:0},
+{q:"Which of the following best explains why powdered metal fires (e.g., aluminum dust) are hazardous?",a:["They have low surface area and are hard to ignite","High surface area and dispersion produce very rapid combustion and possible dust explosions","They are non-oxidizing in air","They absorb water and extinguish easily"],correct:1},
+{q:"In fire prevention, the term “inherently safer design” most nearly means:",a:["Adding more fire alarms","Eliminating or substituting hazardous materials and simplifying systems to reduce fire hazard risk","Outsourcing fire safety to third parties","Relying on insurance to cover losses"],correct:1},
+{q:"Which phenomenon makes detection and suppression of smoldering combustion particularly difficult?",a:["Smoldering does not produce heat","Low flame, diffusion-controlled oxidation with deep seated pyrolysis, low visible flame and slow spread often concealed in materials","Smoldering always produces explosive flames easily detected","Smoldering requires vacuum conditions only"],correct:1},
+{q:"The Lower Explosive Limit (LEL) is defined as:",a:["The highest concentration of vapour in air which will burn","The lowest concentration of vapour in air below which propagation of flame does not occur on contact with an ignition source","The temperature required to produce flash at sea level","The concentration at which oxygen is depleted"],correct:1}
+];
+
+    const questionsDiv = document.getElementById("questions");
+    questionsData.forEach((q, i) => {
+      let html = `<div class='question'><h3>Q${i + 1}. ${q.q}</h3>`;
+      q.a.forEach((opt, idx) => {
+        html += `<label><input type='radio' name='q${i}' value='${idx}'> ${opt}</label>`;
+      });
+      html += "</div>";
+      questionsDiv.innerHTML += html;
+    });
+
+    let startTime = new Date();
+    document.getElementById("startTime").innerText = startTime.toLocaleString();
+
+    document.getElementById("examForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const endTime = new Date();
+      let correct = 0;
+
+      questionsData.forEach((q, i) => {
+        const ans = document.querySelector(`input[name='q${i}']:checked`);
+        if (ans && parseInt(ans.value) === q.correct) correct++;
+      });
+
+      const total = questionsData.length;
+      const percent = Math.round((correct / total) * 100);
+      const timeTaken = Math.floor((endTime - startTime) / 1000);
+
+      document.getElementById("scorePercent").innerText = percent + "%";
+      document.getElementById("scoreValue").innerText = `${correct}/${total}`;
+      document.getElementById("timeTaken").innerText = `${timeTaken}s`;
+      document.getElementById("submitTime").innerText = endTime.toLocaleString();
+      document.getElementById("rankMsg").innerText = percent === 100 ? "You have scored full marks! Rank #1 🔥" : `You scored ${percent}%. Keep improving!`;
+
+      document.getElementById("exam").style.display = "none";
+      document.getElementById("resultPage").style.display = "block";
+    });
+  </script>
+</body>
+</html>
